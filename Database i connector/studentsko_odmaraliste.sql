@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `rezervacija`;
 CREATE TABLE `rezervacija` (
   `idRezervacija` bigint(20) NOT NULL AUTO_INCREMENT,
   `popust` double NOT NULL,
-  `cenaNakonPopusta` bigint(20) NOT NULL,
+  `cenaNakonPopusta` double NOT NULL,
   `ukupanIznos` double NOT NULL,
   `napomenaStudenta` varchar(50) NOT NULL,
   `idSluzbenik` bigint(20) DEFAULT NULL,
@@ -48,8 +48,7 @@ CREATE TABLE `sluzbenik` (
   `korisnickoIme` varchar(50) NOT NULL,
   `lozinka` varchar(100) NOT NULL,
   PRIMARY KEY (`idSluzbenik`),
-  UNIQUE KEY `korisnickoIme` (`korisnickoIme`),
-  CONSTRAINT `sluzbenik_ibfk_1` FOREIGN KEY (`idSluzbenik`) REFERENCES `rezervacija` (`idRezervacija`)
+  UNIQUE KEY `korisnickoIme` (`korisnickoIme`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `sluzbenik` */
@@ -59,7 +58,7 @@ CREATE TABLE `sluzbenik` (
 DROP TABLE IF EXISTS `sluzbeniksmena`;
 
 CREATE TABLE `sluzbeniksmena` (
-  `idSluzbenik` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idSluzbenik` bigint(20) NOT NULL,
   `idSmena` bigint(20) NOT NULL,
   `datumSmene` date NOT NULL,
   PRIMARY KEY (`idSluzbenik`,`idSmena`,`datumSmene`),
@@ -78,6 +77,7 @@ CREATE TABLE `smena` (
   `idSmena` bigint(20) NOT NULL AUTO_INCREMENT,
   `prostorija` varchar(50) NOT NULL,
   `komentar` varchar(200) NOT NULL,
+  `tipSmene` enum('JUTARNJA','POPODNEVNA') DEFAULT NULL,
   PRIMARY KEY (`idSmena`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -89,7 +89,8 @@ DROP TABLE IF EXISTS `soba`;
 
 CREATE TABLE `soba` (
   `idSoba` bigint(20) NOT NULL AUTO_INCREMENT,
-  `tipSobe` int(11) NOT NULL,
+  `kapacitet` int(11) NOT NULL,
+  `zauzetoMesta` int(11) DEFAULT 0,
   `sprat` int(20) NOT NULL,
   `cena` double NOT NULL,
   PRIMARY KEY (`idSoba`)
@@ -105,6 +106,8 @@ CREATE TABLE `status` (
   `idStatus` bigint(20) NOT NULL AUTO_INCREMENT,
   `godinaStudija` bigint(20) DEFAULT NULL,
   `budzet` tinyint(1) DEFAULT NULL,
+  `datumVazenjaOd` date DEFAULT NULL,
+  `datumVazenjaDo` date DEFAULT NULL,
   PRIMARY KEY (`idStatus`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -120,6 +123,7 @@ CREATE TABLE `stavkarezervacije` (
   `nazivLokacije` varchar(100) NOT NULL,
   `datumVazenjaOd` date NOT NULL,
   `datumVazenjaDo` date NOT NULL,
+  `brojDana` bigint(20) DEFAULT NULL,
   `cena` double NOT NULL,
   `iznos` double NOT NULL,
   `idSoba` bigint(20) NOT NULL,
@@ -141,7 +145,7 @@ CREATE TABLE `student` (
   `prezime` varchar(50) NOT NULL,
   `brTelefona` bigint(20) NOT NULL,
   `fakultet` varchar(50) NOT NULL,
-  `idStatus` bigint(20) DEFAULT NULL,
+  `idStatus` bigint(20) NOT NULL,
   PRIMARY KEY (`idStudent`),
   KEY `idStatus` (`idStatus`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`idStatus`) REFERENCES `status` (`idStatus`)
