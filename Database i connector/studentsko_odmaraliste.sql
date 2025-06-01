@@ -119,8 +119,9 @@ DROP TABLE IF EXISTS `stavkarezervacije`;
 
 CREATE TABLE `stavkarezervacije` (
   `idRezervacije` bigint(20) NOT NULL,
-  `rb` bigint(20) NOT NULL,
-  `nazivLokacije` varchar(100) NOT NULL,
+  `rb` int(11) NOT NULL,
+  `nazivSmestaja` varchar(100) NOT NULL,
+  `brSobe` int(11) NOT NULL,
   `datumVazenjaOd` date NOT NULL,
   `datumVazenjaDo` date NOT NULL,
   `brojDana` bigint(20) DEFAULT NULL,
