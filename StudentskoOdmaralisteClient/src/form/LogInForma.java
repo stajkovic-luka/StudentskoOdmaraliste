@@ -1,9 +1,11 @@
 package form;
 
+import dto.LoginOdgovorDTO;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 
 /**
@@ -11,7 +13,9 @@ import kontroler.Kontroler;
  * @author lukas
  */
 public class LogInForma extends javax.swing.JFrame {
+
     private System.Logger LOGGER = System.getLogger("LogInForma");
+
     /**
      * Creates new form LoginForma
      */
@@ -26,11 +30,8 @@ public class LogInForma extends javax.swing.JFrame {
         getContentPane().setBackground(new Color(173, 216, 230));
         jButtonLogIn.setBackground(new Color(255, 140, 0));
         jButtonLogIn.setForeground(Color.WHITE);
-    
+
         setTitle("Rezervacija odmora");
-        
-        
-        
 
     }
 
@@ -113,12 +114,25 @@ public class LogInForma extends javax.swing.JFrame {
         String username = jTextFieldKorisnickoIme.getText();
         String password = String.valueOf(jPasswordField.getPassword());
 
-        boolean ulogovan = Kontroler.getInstance().logIn(username,password);
-        if(ulogovan){
-            GlavnaForma gf = new GlavnaForma(this, false);
-            this.dispose();
-            gf.setVisible(true);
-        }else{
+        LoginOdgovorDTO sluzbenikPodaci = Kontroler.getInstance().logIn(username, password);
+        if (sluzbenikPodaci != null) {
+
+            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni", "Uspesno logovanje", JOptionPane.INFORMATION_MESSAGE);
+
+            try {
+                GlavnaForma gf = new GlavnaForma(this, false, sluzbenikPodaci);
+                this.dispose();
+                gf.setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        "Ne moze da se otvori glavna forma i meni",
+                        "Greska", JOptionPane.ERROR_MESSAGE);
+                LOGGER.log(System.Logger.Level.ERROR, "Greška pri otvaranju glavne forme", e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra nisu ispravni", "Greska!", JOptionPane.ERROR_MESSAGE);
+            jTextFieldKorisnickoIme.setText("");
+            jPasswordField.setText("");
             LOGGER.log(System.Logger.Level.INFO, "Sifra nije dobra.");
         }
     }//GEN-LAST:event_jButtonLogInActionPerformed

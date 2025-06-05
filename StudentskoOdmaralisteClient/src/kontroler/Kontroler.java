@@ -1,6 +1,7 @@
 package kontroler;
 
-import dto.LoginPodaciDTO;
+import dto.LoginOdgovorDTO;
+import dto.LoginZahtevDTO;
 import komunikacija.Komunikacija;
 import transfer.KlijentskiZahtev;
 import transfer.ServerskiOdgovor;
@@ -25,15 +26,21 @@ public class Kontroler {
         return instance;
     }
 
-    public boolean logIn(String username, String password) {
-        KlijentskiZahtev zahtevZaLogin = new KlijentskiZahtev(1, new LoginPodaciDTO(username, password));
+    public LoginOdgovorDTO logIn(String username, String password) {
+        // Prazna polja
+        if (username == null || username.isBlank() || 
+        password == null || password.isBlank()) {
+        return null;
+    }
+        
+        KlijentskiZahtev zahtevZaLogin = new KlijentskiZahtev(1, new LoginZahtevDTO(username, password));
 
         logger.log(System.Logger.Level.INFO, "Zahtev za poslat...");
         Komunikacija.getInstance().posaljiZatev(zahtevZaLogin);
 
         ServerskiOdgovor so = Komunikacija.getInstance().primiOdgovor();
         logger.log(System.Logger.Level.INFO, "Zahtev za primljen...");
-        return (boolean) so.getOdgovor();
+        return (LoginOdgovorDTO) so.getOdgovor();
         
         
     }

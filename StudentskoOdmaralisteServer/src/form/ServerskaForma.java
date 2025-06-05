@@ -160,6 +160,7 @@ public class ServerskaForma extends javax.swing.JFrame {
         ImageIcon scaledIcon = new ImageIcon(imageScale);
         jLabelLogo.setIcon(scaledIcon);
         this.setLocationRelativeTo(null);
+        setTitle("SERVER");
        
     }
 }

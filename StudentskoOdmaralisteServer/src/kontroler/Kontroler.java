@@ -1,6 +1,7 @@
 package kontroler;
 
-import dto.LoginPodaciDTO;
+import dto.LoginOdgovorDTO;
+import dto.LoginZahtevDTO;
 import konekcija.DBBroker;
 
 /**
@@ -22,7 +23,7 @@ public class Kontroler {
         return instance;
     }
 
-    public boolean proveriSifru(LoginPodaciDTO lozinka) {
+    public LoginOdgovorDTO proveriSifru(LoginZahtevDTO lozinka) {
         return dbb.proveriSifru(lozinka);
     }
     

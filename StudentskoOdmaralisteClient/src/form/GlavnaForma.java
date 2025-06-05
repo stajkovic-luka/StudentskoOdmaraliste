@@ -1,17 +1,26 @@
 package form;
 
+import dto.LoginOdgovorDTO;
+import java.awt.Frame;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import kontroler.Kontroler;
+
 /**
  *
  * @author lukas
  */
 public class GlavnaForma extends javax.swing.JDialog {
-
+    private LoginOdgovorDTO ulogovaniSluzbenik;
     /**
      * Creates new form GlavnaForma
      */
-    public GlavnaForma(java.awt.Frame parent, boolean modal) {
+    public GlavnaForma(Frame parent, boolean modal, LoginOdgovorDTO sluzbenikPodaci) {
         super(parent, modal);
         initComponents();
+        ulogovaniSluzbenik = sluzbenikPodaci;
+        
+        popuniFormu();
     }
 
     /**
@@ -23,27 +32,59 @@ public class GlavnaForma extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabelSluzbenik = new javax.swing.JLabel();
+        jLabelUlogovaniSluzbenik = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("LOREM IPSUM");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 378, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 323, Short.MAX_VALUE)
+        );
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+
+        jLabelSluzbenik.setText("Ulogovan sluzbenik:");
+
+        jLabelUlogovaniSluzbenik.setText("s");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabelSluzbenik, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                        .addComponent(jLabelUlogovaniSluzbenik, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelSluzbenik)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelUlogovaniSluzbenik))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
@@ -56,5 +97,19 @@ public class GlavnaForma extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelSluzbenik;
+    private javax.swing.JLabel jLabelUlogovaniSluzbenik;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void popuniFormu() {
+        setTitle("Rezervacija odmora");
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/image/logo.png"));
+        Image img = originalIcon.getImage();
+        Image scaledImage = img.getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        jLabel1.setIcon(scaledIcon);
+        
+        jLabelUlogovaniSluzbenik.setText(ulogovaniSluzbenik.ime()+" "+ulogovaniSluzbenik.prezime());
+    }
 }

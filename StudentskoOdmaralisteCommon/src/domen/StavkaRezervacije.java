@@ -10,7 +10,8 @@ import java.util.Date;
 public class StavkaRezervacije implements Serializable{
     private Rezervacija rezervacija;
     private int rb;
-    private String nazivLokacije;
+    private String nazivSmestaja;
+    private int brSobe;
     private Date datumVazenjaOd;
     private Date datumVazenjaDo;
     private int brojDana;
@@ -21,10 +22,11 @@ public class StavkaRezervacije implements Serializable{
     public StavkaRezervacije() {
     }
 
-    public StavkaRezervacije(Rezervacija rezervacija, int rb, String nazivLokacije, Date datumVazenjaOd, Date datumVazenjaDo, int brojDana, double cena, double iznos, Soba soba) {
+    public StavkaRezervacije(Rezervacija rezervacija, int rb, String nazivSmestaja, int brSobe, Date datumVazenjaOd, Date datumVazenjaDo, int brojDana, double cena, double iznos, Soba soba) {
         this.rezervacija = rezervacija;
         this.rb = rb;
-        this.nazivLokacije = nazivLokacije;
+        this.nazivSmestaja = nazivSmestaja;
+        this.brSobe = brSobe;
         this.datumVazenjaOd = datumVazenjaOd;
         this.datumVazenjaDo = datumVazenjaDo;
         this.brojDana = brojDana;
@@ -49,12 +51,20 @@ public class StavkaRezervacije implements Serializable{
         this.rb = rb;
     }
 
-    public String getNazivLokacije() {
-        return nazivLokacije;
+    public String getNazivSmestaja() {
+        return nazivSmestaja;
     }
 
-    public void setNazivLokacije(String nazivLokacije) {
-        this.nazivLokacije = nazivLokacije;
+    public void setNazivSmestaja(String nazivSmestaja) {
+        this.nazivSmestaja = nazivSmestaja;
+    }
+
+    public int getBrSobe() {
+        return brSobe;
+    }
+
+    public void setBrSobe(int brSobe) {
+        this.brSobe = brSobe;
     }
 
     public Date getDatumVazenjaOd() {
@@ -104,6 +114,14 @@ public class StavkaRezervacije implements Serializable{
     public void setSoba(Soba soba) {
         this.soba = soba;
     }
+
+    @Override
+    public String toString() {
+        return "StavkaRezervacije{" + "rezervacija=" + rezervacija + ", rb=" + rb + ", nazivSmestaja=" + nazivSmestaja + ", brSobe=" + brSobe + ", datumVazenjaOd=" + datumVazenjaOd + ", datumVazenjaDo=" + datumVazenjaDo + ", brojDana=" + brojDana + ", cena=" + cena + ", iznos=" + iznos + ", soba=" + soba + '}';
+    }
+
+    
+  
     
     
 }
